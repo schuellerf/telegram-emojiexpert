@@ -1,6 +1,8 @@
 # Telegram Emoji Expert Bot
 
-Simple bot writen in Python3 to show the name of Emojis
+Please send this bot _single Emojis_ and it will show the official "unicode name"!
+
+This also works for all those skin tones and other special Emojis I wasn't able to find out what they mean.
 
 ## Usage
 Just open up Telegram and search for **@emojiexpert** or **Emoji Expert** and start sending _single_ Emojis
