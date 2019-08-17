@@ -3,7 +3,7 @@
 Simple bot writen in Python3 to show the name of Emojis
 
 ## Usage
-Just search for **@emojiexpert** or **Emoji Expert** and start sending _single_ Emojis
+Just open up Telegram and search for **@emojiexpert** or **Emoji Expert** and start sending _single_ Emojis
 
 **YOU SHOULD NOT NEED TO DO ANYTHING BELOW**
 
