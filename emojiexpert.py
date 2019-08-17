@@ -112,8 +112,6 @@ class emojiexpert:
     def sendTextMessage(self, chat_id, text):
         self._sendMessage(chat_id, text)
 
-
-
     def processTextMessage(self, message):
         text = message["text"]
 
@@ -131,20 +129,22 @@ class emojiexpert:
             #processCommandMessage(message)
             self.sendTextMessage(chat_id, "I don't know any command for now" + config.STATEMENT)
         elif any(x in text.lower() for x in self.HELLO):
-            self.sendTextMessage(chat_id, config.GREETING)
+            self.sendTextMessage(chat_id, config.GREETING + config.STATEMENT)
         else:
+            text = text.strip()
             code = ' '.join(["%X" % ord(x) for x in text]).replace('FE0F', '').strip()
             code_raw = ' '.join(["%X" % ord(x) for x in text])
 
             e = self.emojiChars.get(code)
             if e:
-                url = "https://emojipedia.org/emoji/"+urllib.parse.quote(text)+"\n"
+                #url = "https://emojipedia.org/emoji/"+urllib.parse.quote(text)+"\n"
+                url = "https://emojipedia.org/emoji/{}/\n".format(text)
                 meaning = url + e.get('name')
                 self.storage.countSearch(chat_id)
             else:
-                meaning = '… unknown to me!\nPlease only submit one emoji at a time \U0001F612\nor my data needs an update \U0001f616\n' + config.STATEMENT
+                meaning = '… unknown to me!\nPlease only submit one emoji at a time \U0001F612\nor my data needs an update \U0001f616\n\n(RAW CODE: {})'.format(code_raw) + config.STATEMENT
 
-            self.sendTextMessage(chat_id, "'{}' ({}) is:\n{}".format(text, code_raw, meaning))
+            self.sendTextMessage(chat_id, "'{}' is:\n{}".format(text, meaning))
 
     def processMessage(self, message):
         if "text" in message:
