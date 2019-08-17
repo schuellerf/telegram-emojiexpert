@@ -120,7 +120,12 @@ class emojiexpert:
         chat_id = message["chat"]["id"]
         if not self.storage.isUser(chat_id):
             self.sendTextMessage(chat_id, "Hi {}, ".format(message["from"]["first_name"]) + config.GREETING + config.STATEMENT)
-            self.storage.createUser(chat_id)
+            name = None
+            if "username" in message["from"]:
+                name = message["from"]["username"]
+            elif "first_name" in message["from"]:
+                name = message["from"]["first_name"]
+            self.storage.createUser(chat_id, name)
 
         if text.startswith("/"):
             #processCommandMessage(message)

@@ -9,10 +9,10 @@ class Persistence:
             # Initialize for first start
             self.users = {}
 
-    def createUser(self, id):
+    def createUser(self, id, username = "should_not_happen"):
         id = str(id)
         if not self.isUser(id):
-            self.users[id]={'searches': 0}
+            self.users[id]={'searches': 0, 'username': username}
             self.save()
 
     def deleteUser(self, id):
