@@ -127,7 +127,7 @@ class emojiexpert:
 
         if text.startswith("/"):
             #processCommandMessage(message)
-            self.sendTextMessage(chat_id, "I don't know any command for now" + config.STATEMENT)
+            self.sendTextMessage(chat_id, config.GREETING + config.STATEMENT)
         elif any(x in text.lower() for x in self.HELLO):
             self.sendTextMessage(chat_id, config.GREETING + config.STATEMENT)
         else:
