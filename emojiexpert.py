@@ -83,7 +83,7 @@ class emojiexpert:
                 name = row[OLD_NAME]
             if not name:
                 name = "Char code 0x{} has no name :-(".format(row[CODE_VALUE])
-            unicodeChars[row[CODE_VALUE]] = { 'name': name }
+            unicodeChars[row[CODE_VALUE].lstrip('0')] = { 'name': name }
         return unicodeChars
 
     def startupMessage(self):

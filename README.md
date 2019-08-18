@@ -4,6 +4,8 @@ Please send this bot _single Emojis_ and it will show the official "unicode name
 
 This also works for all those skin tones and other special Emojis I wasn't able to find out what they mean.
 
+btw. this Bot also know _all_ normal "unicode" characters...
+
 ## Usage
 Just open up Telegram and search for **@emojiexpert_bot** or **Emoji Expert** and start sending _single_ Emojis
 
