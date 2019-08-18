@@ -139,7 +139,7 @@ class emojiexpert:
             if e:
                 #url = "https://emojipedia.org/emoji/"+urllib.parse.quote(text)+"\n"
                 url = "https://emojipedia.org/emoji/{}/\n".format(text)
-                meaning = url + e.get('name')
+                meaning = url + e.get('name').title()
                 self.storage.countSearch(chat_id)
             else:
                 meaning = '… unknown to me!\nPlease only submit one emoji at a time \U0001F612\nor my data needs an update \U0001f616\n\n(RAW CODE: {})'.format(code_raw) + config.STATEMENT
