@@ -20,7 +20,7 @@ If you have questions go the place where I was born: https://github.com/schuelle
 """.format(NAME)
 
 # Statement to show additionaly to the help
-STATEMENT = "\nIf you like my job please donate any amount to https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=CYYUAJGURTYKE&item_name=emojiexpert&currency_code=EUR&source=url"
+STATEMENT = "\nIf you like my job please donate any amount to https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=HRUEUXWX52QNJ&source=url"
 
 # Long polling timeout in seconds
 TIMEOUT = 60 * 5
