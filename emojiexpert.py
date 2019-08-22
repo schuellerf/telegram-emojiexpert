@@ -142,7 +142,14 @@ class emojiexpert:
                 meaning = url + e.get('name').title()
                 self.storage.countSearch(chat_id)
             else:
-                meaning = '… unknown to me!\nPlease only submit one emoji at a time \U0001F612\nor my data needs an update \U0001f616\n\n(RAW CODE: {})'.format(code_raw) + config.STATEMENT
+                meaning = "(a decoded sequence)\n"
+                for x in text:
+                    e = self.emojiChars.get("%X" % ord(x))
+                    if e:
+                        meaning += x + ' ' + e.get('name').title() + '\n'
+                    else:
+                        meaning += x + ' …unknown to me' + '\n'
+                #meaning = '… unknown to me!\nPlease only submit one emoji at a time \U0001F612\nor my data needs an update \U0001f616\n\n(RAW CODE: {})'.format(code_raw) + config.STATEMENT
 
             self.sendTextMessage(chat_id, "'{}' is:\n{}".format(text, meaning))
 
