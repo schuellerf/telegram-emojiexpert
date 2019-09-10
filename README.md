@@ -1,6 +1,6 @@
 # Telegram Emoji Expert Bot
-![Search for the Bot](/pics/screenshot_search.png|width=20%)
-![Use the Bot](/pics/screenshot_demo.png|width=20%)
+<img src="/pics/screenshot_search.png" alt="Search for the Bot" title="Search for the Bot" width="20%" />
+<img src="/pics/screenshot_demo.png" alt="Use the Bot" title="Use the Bot" width="20%" />
 
 Please send this bot _single Emojis_ and it will show the official "unicode name"!
 
