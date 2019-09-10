@@ -1,6 +1,6 @@
 # Telegram Emoji Expert Bot
-![Search for the Bot](/pics/screenshot_search.png)
-![Use the Bot](/pics/screenshot_demo.png)
+![Search for the Bot](/pics/screenshot_search.png|width=20%)
+![Use the Bot](/pics/screenshot_demo.png|width=20%)
 
 Please send this bot _single Emojis_ and it will show the official "unicode name"!
 
