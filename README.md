@@ -59,3 +59,14 @@ python3 emojiexpert.py
 
 To keep your new telegram bot running when you logout you might want to checkout [tmux](https://tmux.github.io/), which is probably shipped with your favorite distribution.
 
+## Updating
+To update to a newer version of Unicode or Emoji standard please update the files
+
+- emoji-data.txt
+- emoji-sequences.txt
+- emoji-test.txt
+- emoji-zwj-sequences.txt
+- UnicodeData.txt
+
+by either reading the hints in `emojiexpert.py` or removing those files and following the hints when starting `python3 emojiexpert.py` without those files
+
