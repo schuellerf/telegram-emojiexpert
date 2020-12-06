@@ -56,10 +56,10 @@ class emojiexpert:
 
     def load_emoji_data(self):
 
-        emojiChars = self._load_emoji_data_file("emoji-sequences.txt", "https://unicode.org/Public/emoji/12.0/emoji-sequences.txt")
-        emojiChars.update(self._load_emoji_data_file("emoji-zwj-sequences.txt", "https://unicode.org/Public/emoji/12.0/emoji-zwj-sequences.txt"))
-        emojiChars.update(self._load_emoji_data_file("emoji-data.txt", "https://unicode.org/Public/emoji/12.0/emoji-data.txt"))
-        emojiChars.update(self._load_emoji_data_file("emoji-test.txt", "https://unicode.org/Public/emoji/12.0/emoji-test.txt"))
+        emojiChars = self._load_emoji_data_file("emoji-sequences.txt", "https://unicode.org/Public/emoji/13.0/emoji-sequences.txt")
+        emojiChars.update(self._load_emoji_data_file("emoji-zwj-sequences.txt", "https://unicode.org/Public/emoji/13.0/emoji-zwj-sequences.txt"))
+        emojiChars.update(self._load_emoji_data_file("emoji-data.txt", "https://unicode.org/Public/13.0.0/ucd/emoji/emoji-data.txt"))
+        emojiChars.update(self._load_emoji_data_file("emoji-test.txt", "https://unicode.org/Public/emoji/13.0/emoji-test.txt"))
 
         return emojiChars
 
