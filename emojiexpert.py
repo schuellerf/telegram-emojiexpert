@@ -132,6 +132,7 @@ class emojiexpert:
             self.sendTextMessage(chat_id, config.GREETING + config.STATEMENT)
         else:
             text = text.strip()
+
             code = ' '.join(["%X" % ord(x) for x in text]).replace('FE0F', '').strip()
             code_raw = ' '.join(["%X" % ord(x) for x in text])
 
@@ -184,9 +185,7 @@ class emojiexpert:
                         print("update {}: {}".format(11-limit,update))
                         limit-=1
                         if limit <= 0: break
-                        update_id = update["update_id"]
-                        if update_id > self.last_update_id:
-                            self.last_update_id = update_id
+                        self.last_update_id = update["update_id"]
 
                         try:
                             self.processMessage(update["message"])
