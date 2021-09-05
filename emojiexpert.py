@@ -155,20 +155,17 @@ class emojiexpert:
                 for x in self.SEARCH:
                     text = text.lstrip(x).strip()
 
-            i = 0
-            result = ""
-            for emoji, descr in self.search_text(text):
-                if i >= start:
-                    result += f"{i+1}: {emoji} {descr}\n"
+            result_list = list(self.search_text(text))
 
-                i += 1
-                if i >= start + limit:
-                    break
+            result = "\n".join([f"{i+1}: {emoji} {descr}" for emoji, descr in result_list[start: start + limit]])
 
             if not result:
                 result = "...nothing \U0001F61F"
             
-            self.sendTextMessage(chat_id, f"For '{text}' I found:\n{result}")
+            ret = f"For '{text}' I found {len(result_list)}:\n{result}"
+            if len(result_list) > start + limit:
+                ret += "\nWrite " + " or ".join(self.SEARCH_MORE) + " to see more"
+            self.sendTextMessage(chat_id, ret)
 
             self.storage.setSearchString(chat_id, text)
             self.storage.setSearchIndex(chat_id, i)
