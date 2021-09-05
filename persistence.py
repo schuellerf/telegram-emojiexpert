@@ -51,7 +51,7 @@ class Persistence:
     def getSearchIndex(self, id):
         id = str(id)
         self.createUser(id)
-        return self.users[id].get('search_idx', 0)
+        return self.users[id].get('search_index', 0)
 
     def allUsers(self):
         return self.users

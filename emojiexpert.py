@@ -157,18 +157,18 @@ class emojiexpert:
 
             result_list = list(self.search_text(text))
 
-            result = "\n".join([f"{i+1}: {emoji} {descr}" for emoji, descr in result_list[start: start + limit]])
+            result = "\n".join([f"{emoji} {descr}" for emoji, descr in result_list[start: start + limit]])
 
             if not result:
                 result = "...nothing \U0001F61F"
             
-            ret = f"For '{text}' I found {len(result_list)}:\n{result}"
+            ret = f"For '{text}' I found {start + limit}/{len(result_list)}:\n{result}"
             if len(result_list) > start + limit:
                 ret += "\nWrite " + " or ".join(self.SEARCH_MORE) + " to see more"
             self.sendTextMessage(chat_id, ret)
 
             self.storage.setSearchString(chat_id, text)
-            self.storage.setSearchIndex(chat_id, i)
+            self.storage.setSearchIndex(chat_id, start + limit)
         else:
             text = text.strip()
 
