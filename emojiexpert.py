@@ -162,7 +162,8 @@ class emojiexpert:
             if not result:
                 result = "...nothing \U0001F61F"
             
-            ret = f"For '{text}' I found {start + limit}/{len(result_list)}:\n{result}"
+            minimum = min(start + limit,len(result_list))
+            ret = f"For '{text}' I found {minimum}/{len(result_list)}:\n{result}"
             if len(result_list) > start + limit:
                 ret += "\nWrite " + " or ".join(self.SEARCH_MORE) + " to see more"
                 self.storage.setSearchIndex(chat_id, start + limit)
