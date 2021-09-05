@@ -14,6 +14,8 @@ GREETING = """I'm @{}!
 
 Please send me a single Emoji and I'll tell you the official unicode name of it.
 
+You can also search for emojis by writing "search <your text>" or "find <your text>"
+
 That's it. I can't do more... but I should know ALL Emojis \U0001F609
 
 If you have questions go the place where I was born: https://github.com/schuellerf/telegram-emojiexpert.git

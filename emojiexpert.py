@@ -26,6 +26,7 @@ class emojiexpert:
 
         # lower case versions of hello's
         self.HELLO = ["hi", "hello", "hallo"]
+        self.SEARCH = ["search", "find"]
 
     def _load_emoji_data_file(self, filename, url):
         try:
@@ -53,6 +54,11 @@ class emojiexpert:
             codes2 = codes.replace('FE0F', '').replace('  ',' ').strip()
             emojiChars[codes2] = { 'name': name, 'type': typ }
         return emojiChars
+
+    def search_text(self, text).
+        for k,v in self.emojiChars.items():
+            if text.lower() in v['name'].lower():
+                yield k
 
     def load_emoji_data(self):
 
@@ -130,6 +136,25 @@ class emojiexpert:
             self.sendTextMessage(chat_id, config.GREETING + config.STATEMENT)
         elif any(x in text.lower() for x in self.HELLO):
             self.sendTextMessage(chat_id, config.GREETING + config.STATEMENT)
+        elif any(x in text.lower() for x in self.SEARCH):
+            # remove search-command
+            for x in self.SEARCH:
+                text = text.lstrip(x).strip()
+
+            start = 0
+            limit = 5
+
+            i = 0
+            result = ""
+            for emoji in self.search_text(text):
+                if i >= start:
+                    result += f"{i}: {emoji}\n"
+
+                i += 1
+                if i >= start + limit:
+                    break
+            
+            self.sendTextMessage(chat_id, f"For '{text}' i found:\n{result}")
         else:
             text = text.strip()
 
