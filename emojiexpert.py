@@ -165,10 +165,12 @@ class emojiexpert:
             ret = f"For '{text}' I found {start + limit}/{len(result_list)}:\n{result}"
             if len(result_list) > start + limit:
                 ret += "\nWrite " + " or ".join(self.SEARCH_MORE) + " to see more"
-            self.sendTextMessage(chat_id, ret)
+                self.storage.setSearchIndex(chat_id, start + limit)
 
             self.storage.setSearchString(chat_id, text)
-            self.storage.setSearchIndex(chat_id, start + limit)
+
+            self.sendTextMessage(chat_id, ret)
+
         else:
             text = text.strip()
 
