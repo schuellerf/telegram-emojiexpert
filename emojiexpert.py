@@ -138,9 +138,9 @@ class emojiexpert:
         if text.startswith("/"):
             #processCommandMessage(message)
             self.sendTextMessage(chat_id, config.GREETING + config.STATEMENT)
-        elif any(x in text.lower() for x in self.HELLO):
+        elif any(text.lower().startswith(x) for x in self.HELLO):
             self.sendTextMessage(chat_id, config.GREETING + config.STATEMENT)
-        elif any(x in text.lower() for x in self.SEARCH):
+        elif any(text.lower().startswith(x) for x in self.SEARCH):
             # remove search-command
             text = text.lower()
             for x in self.SEARCH:
@@ -153,7 +153,7 @@ class emojiexpert:
             result = ""
             for emoji, descr in self.search_text(text):
                 if i >= start:
-                    result += f"{i}: {emoji} {descr}\n"
+                    result += f"{i+1}: {emoji} {descr}\n"
 
                 i += 1
                 if i >= start + limit:
@@ -162,7 +162,7 @@ class emojiexpert:
             if not result:
                 result = "...nothing \U0001F61F"
             
-            self.sendTextMessage(chat_id, f"For '{text}' i found:\n{result}")
+            self.sendTextMessage(chat_id, f"For '{text}' I found:\n{result}")
         else:
             text = text.strip()
 
