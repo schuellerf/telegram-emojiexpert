@@ -55,10 +55,14 @@ class emojiexpert:
             emojiChars[codes2] = { 'name': name, 'type': typ }
         return emojiChars
 
-    def search_text(self, text).
+    def search_text(self, text):
         for k,v in self.emojiChars.items():
             if text.lower() in v['name'].lower():
-                yield k
+                sub_codes = k.split(" ")
+                ret_chr =""
+                for c in sub_codes:
+                    ret_chr += chr(int(c,16))
+                yield ret_chr, v['name'].title()
 
     def load_emoji_data(self):
 
@@ -138,6 +142,7 @@ class emojiexpert:
             self.sendTextMessage(chat_id, config.GREETING + config.STATEMENT)
         elif any(x in text.lower() for x in self.SEARCH):
             # remove search-command
+            text = text.lower()
             for x in self.SEARCH:
                 text = text.lstrip(x).strip()
 
@@ -146,13 +151,16 @@ class emojiexpert:
 
             i = 0
             result = ""
-            for emoji in self.search_text(text):
+            for emoji, descr in self.search_text(text):
                 if i >= start:
-                    result += f"{i}: {emoji}\n"
+                    result += f"{i}: {emoji} {descr}\n"
 
                 i += 1
                 if i >= start + limit:
                     break
+
+            if not result:
+                result = "...nothing \U0001F61F"
             
             self.sendTextMessage(chat_id, f"For '{text}' i found:\n{result}")
         else:
