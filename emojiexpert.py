@@ -27,6 +27,7 @@ class emojiexpert:
         # lower case versions of hello's
         self.HELLO = ["hi", "hello", "hallo"]
         self.SEARCH = ["search", "find"]
+        self.SEARCH_MORE = ["more", "continue", "next"]
 
     def _load_emoji_data_file(self, filename, url):
         try:
@@ -140,14 +141,19 @@ class emojiexpert:
             self.sendTextMessage(chat_id, config.GREETING + config.STATEMENT)
         elif any(text.lower().startswith(x) for x in self.HELLO):
             self.sendTextMessage(chat_id, config.GREETING + config.STATEMENT)
-        elif any(text.lower().startswith(x) for x in self.SEARCH):
-            # remove search-command
-            text = text.lower()
-            for x in self.SEARCH:
-                text = text.lstrip(x).strip()
+        elif any(text.lower().startswith(x) for x in self.SEARCH) or any(text.lower().startswith(x) for x in self.SEARCH_MORE):
 
-            start = 0
             limit = 5
+
+            if any(text.lower().startswith(x) for x in self.SEARCH_MORE):
+                start = self.storage.getSearchIndex(chat_id)
+                text = self.storage.getSearchString(chat_id)
+            else:
+                start = 0
+                # remove search-command
+                text = text.lower()
+                for x in self.SEARCH:
+                    text = text.lstrip(x).strip()
 
             i = 0
             result = ""
@@ -163,6 +169,9 @@ class emojiexpert:
                 result = "...nothing \U0001F61F"
             
             self.sendTextMessage(chat_id, f"For '{text}' I found:\n{result}")
+
+            self.storage.setSearchString(chat_id, text)
+            self.storage.setSearchIndex(chat_id, i)
         else:
             text = text.strip()
 

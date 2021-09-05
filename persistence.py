@@ -31,6 +31,28 @@ class Persistence:
         self.users[id]['searches'] += 1
         self.save()
 
+    def setSearchString(self, id, text):
+        id = str(id)
+        self.createUser(id)
+        self.users[id]['search_string'] = text
+        self.save()
+
+    def getSearchString(self, id):
+        id = str(id)
+        self.createUser(id)
+        return self.users[id].get('search_string', None)
+
+    def setSearchIndex(self, id, idx):
+        id = str(id)
+        self.createUser(id)
+        self.users[id]['search_index'] = idx
+        self.save()
+
+    def getSearchIndex(self, id):
+        id = str(id)
+        self.createUser(id)
+        return self.users[id].get('search_idx', 0)
+
     def allUsers(self):
         return self.users
 
