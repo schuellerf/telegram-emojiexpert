@@ -169,7 +169,8 @@ class emojiexpert:
                 # remove search-command
                 text = text.lower()
                 for x in self.SEARCH:
-                    text = text.lstrip(x).strip()
+                    if text.startswith(x):
+                        text = text[len(x):]
 
             result_list = list(self.search_text(text))
 
