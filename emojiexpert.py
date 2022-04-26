@@ -40,15 +40,24 @@ class emojiexpert:
         emojiChars = {}
         unicodeReader = csv.reader(csvfile, delimiter=';')
         for row in unicodeReader:
-            if len(row) != 3:
+            if len(row) == 2:
+                codes=row[0].strip()
+                typ=row[1].strip().split('#')[0].strip()
+                if typ != "fully-qualified":
+                    continue
+                name_version = row[1].strip().split('#')[1].split('E')
+                name_noversion = "E".join(name_version[1:]).split(" ")
+                name = " ".join(name_noversion[1:])
+            elif len(row) == 3:
+                if row[1] == 'Basic_Emoji':
+                    continue
+                if '..' in row[0]:
+                    continue
+                codes=row[0].strip()
+                typ=row[1].strip()
+                name=row[2].strip().split('#')[0]
+            else:
                 continue
-            if row[1] == 'Basic_Emoji':
-                continue
-            if '..' in row[0]:
-                continue
-            codes=row[0].strip()
-            typ=row[1].strip()
-            name=row[2].strip().split('#')[0]
 
             emojiChars[codes] = { 'name': name, 'type': typ }
             # add optional representation without the VARIATION SELECTOR-16
@@ -198,7 +207,7 @@ class emojiexpert:
                     if e:
                         meaning += x + ' ' + e.get('name').title() + '\n'
                     else:
-                        meaning += x + ' …unknown to me' + '\n'
+                        meaning += x + ' …unknown to me (%X)' % ord(x) + '\n'
                 #meaning = '… unknown to me!\nPlease only submit one emoji at a time \U0001F612\nor my data needs an update \U0001f616\n\n(RAW CODE: {})'.format(code_raw) + config.STATEMENT
 
             self.sendTextMessage(chat_id, "'{}' is:\n{}".format(text, meaning))
