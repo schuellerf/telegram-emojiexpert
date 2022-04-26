@@ -17,7 +17,7 @@ class Persistence:
 
     def deleteUser(self, id):
         id = str(id)
-        if self.isRegisteredUser(id):
+        if self.isUser(id):
             del self.users[id]
             self.save()
 
@@ -58,7 +58,7 @@ class Persistence:
 
     def getUser(self,id):
         id = str(id)
-        if not self.isRegisteredUser(id):
+        if not self.isUser(id):
             return None
         return self.users[id]
 

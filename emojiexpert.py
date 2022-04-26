@@ -98,11 +98,15 @@ class emojiexpert:
         return unicodeChars
 
     def startupMessage(self):
-        for id in self.storage.allUsers():
+        # create a copy to be able to delete inactive ones
+        all_users = list(self.storage.allUsers().keys())
+        for id in all_users:
             self.sendTextMessage(id, "Hi! I'm online again!")
 
     def shutdownMessage(self):
-        for id in self.storage.allUsers():
+        # create a copy to be able to delete inactive ones
+        all_users = list(self.storage.allUsers().keys())
+        for id in all_users:
             self.sendTextMessage(id, "I'm going to sleep for some maintenace.")
 
     def _sendMessage(self, chat_id, text, parse_mode=None):
@@ -119,6 +123,9 @@ class emojiexpert:
         result = r.json()
         if not result["ok"]:
             print(result)
+            if 'error_code' in result and result['error_code'] in (403,400):
+                print(f"Deleting user {chat_id}")
+                self.storage.deleteUser(chat_id)
 
     def sendTextMessage(self, chat_id, text):
         self._sendMessage(chat_id, text)
