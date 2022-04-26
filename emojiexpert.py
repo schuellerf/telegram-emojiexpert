@@ -170,7 +170,7 @@ class emojiexpert:
                 text = text.lower()
                 for x in self.SEARCH:
                     if text.startswith(x):
-                        text = text[len(x):]
+                        text = text[len(x):].strip()
 
             result_list = list(self.search_text(text))
 
