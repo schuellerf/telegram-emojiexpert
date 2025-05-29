@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import argparse
 import requests
 import config
 import atexit
@@ -191,27 +192,7 @@ class emojiexpert:
             self.sendTextMessage(chat_id, ret)
 
         else:
-            text = text.strip()
-
-            code = ' '.join(["%X" % ord(x) for x in text]).replace('FE0F', '').strip()
-            code_raw = ' '.join(["%X" % ord(x) for x in text])
-
-            e = self.emojiChars.get(code)
-            if e:
-                #url = "https://emojipedia.org/emoji/"+urllib.parse.quote(text)+"\n"
-                url = "https://emojipedia.org/emoji/{}/\n".format(text)
-                meaning = url + e.get('name').title()
-                self.storage.countSearch(chat_id)
-            else:
-                meaning = "(a decoded sequence)\n"
-                for x in text:
-                    e = self.emojiChars.get("%X" % ord(x))
-                    if e:
-                        meaning += x + ' ' + e.get('name').title() + '\n'
-                    else:
-                        meaning += x + ' …unknown to me (%X)' % ord(x) + '\n'
-                #meaning = '… unknown to me!\nPlease only submit one emoji at a time \U0001F612\nor my data needs an update \U0001f616\n\n(RAW CODE: {})'.format(code_raw) + config.STATEMENT
-
+            meaning = self.get_meaning(text, chat_id)
             self.sendTextMessage(chat_id, "'{}' is:\n{}".format(text, meaning))
 
     def processMessage(self, message):
@@ -220,6 +201,30 @@ class emojiexpert:
         if "group_chat_created" in message:
             chat_id = message["chat"]["id"]
             self.sendTextMessage(chat_id, "Hi! I don't like group chats, sorry!")
+
+    def get_meaning(self, text, chat_id=None):
+        text = text.strip()
+
+        code = ' '.join(["%X" % ord(x) for x in text]).replace('FE0F', '').strip()
+        code_raw = ' '.join(["%X" % ord(x) for x in text])
+
+        e = self.emojiChars.get(code)
+        if e:
+            #url = "https://emojipedia.org/emoji/"+urllib.parse.quote(text)+"\n"
+            url = "https://emojipedia.org/emoji/{}/\n".format(text)
+            meaning = url + e.get('name').title()
+            if chat_id:
+                self.storage.countSearch(chat_id)
+        else:
+            meaning = "(a decoded sequence)\n"
+            for x in text:
+                e = self.emojiChars.get("%X" % ord(x))
+                if e:
+                    meaning += x + ' ' + e.get('name').title() + '\n'
+                else:
+                    meaning += x + ' …unknown to me (%X)' % ord(x) + '\n'
+            #meaning = '… unknown to me!\nPlease only submit one emoji at a time \U0001F612\nor my data needs an update \U0001f616\n\n(RAW CODE: {})'.format(code_raw) + config.STATEMENT
+        return meaning
 
     def run_bot(self):
 
@@ -263,5 +268,18 @@ class emojiexpert:
             #print(result)
 
 if __name__ == "__main__":
+    # argparser for "process <message>"
+    parser = argparse.ArgumentParser(description='Start the telegram bot')
+    subparsers = parser.add_subparsers(dest='command')
+
+    # "process" subcommand
+    process_parser = subparsers.add_parser('process', help='Process a single message and quit')
+    process_parser.add_argument('message', help='The message to process')
+
+    args = parser.parse_args()
+
     b = emojiexpert()
-    b.run_bot()
+    if args.command == 'process':
+        print(b.get_meaning(args.message))
+    else:
+        b.run_bot()
